@@ -12,6 +12,7 @@ import {
   Stack,
   Typography,
   IconButton,
+  Divider,
 } from "@mui/material";
 
 const Home = () => {
@@ -52,6 +53,7 @@ const Home = () => {
           </Button>
         </CardActions>
       </Card>
+      
        <Card sx={{ maxWidth: 1000 ,
       }}>
           <CardMedia
@@ -86,6 +88,7 @@ const Home = () => {
           </Button>
         </CardActions>
       </Card>
+      <Divider/>
        <Card sx={{ maxWidth: 1000 ,
       }}>
           <CardMedia

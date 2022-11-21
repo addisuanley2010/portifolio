@@ -16,6 +16,7 @@ import {
   Divider,
   Drawer,
   IconButton,
+  Button,
   List,
   ListItem,
   ListItemButton,
@@ -55,7 +56,7 @@ function Navbar(props) {
         {navItems.map((item) => (
           <ListItem key={item} disablePadding>
             <ListItemButton sx={{ textAlign: "center" }}>
-              <Link to={item}>
+              <Link to={item} style={{paddingLeft: 15,textDecoration: 'none'}}>
                 <ListItemText primary={item} />
               </Link>
             </ListItemButton>
@@ -87,7 +88,7 @@ function Navbar(props) {
 
             <Avatar
               alt="Adda"
-              src="http://localhost:3000/aa.JPG"
+              src="../aa.JPG"
               sx={{
                 width: 40,
                 height: 40,
@@ -101,7 +102,7 @@ function Navbar(props) {
 
           <Avatar
             alt="Adda"
-            src="http://localhost:3000/aa.JPG"
+            src="../aa.JPG"
             sx={{
               width: 70,
               height: 70,
@@ -124,13 +125,21 @@ function Navbar(props) {
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {navItems.map((item) => (
-              <Link to={item} key={item} sx={{ color: "#fff" }}>
-                {item}
-              </Link>
+              <Button  color="inherit" sx={{
+             marginX:'10px',
+             
+              }}>
+                <Link to={item} key={item} style={{
+                  paddingLeft: 10, textDecoration: 'none' ,color: 'inherit'}} >
+                  {item}
+                </Link>
+              </Button>
+
             ))}
           </Box>
         </Toolbar>
       </AppBar>
+    
       <Box component="nav">
         <Drawer
           open={mobileOpen}
