@@ -9,6 +9,8 @@ const Services = () => {
       sx={{
         marginTop: "50px",
         marginBottom: "20px",
+          marginX:'0px',
+
         gap: "40px",
 
         flexDirection: {
@@ -23,7 +25,7 @@ const Services = () => {
       <Grid item>
         <Card
           sx={{
-            width: "500px",
+            width: "435px",
             minHeight: "300px",
             padding: "25px",
             backgroundColor: "primary.light",
@@ -45,7 +47,7 @@ const Services = () => {
             "&:hover": {
               backgroundColor: "primary.dark",
             },
-            width: "500px",
+            width: "435px",
             minHeight: "300px",
             padding: "25px",
           }}
@@ -63,7 +65,7 @@ const Services = () => {
             "&:hover": {
               backgroundColor: "primary.dark",
             },
-            width: "500px",
+            width: "435px",
             minHeight: "300px",
             padding: "25px",
           }}
