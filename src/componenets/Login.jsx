@@ -1,14 +1,20 @@
 import React from "react";
-import {InputAdornment, Button,TextField, Stack } from "@mui/material";
+import {
+  InputAdornment,
+  Button,
+  TextField,
+  Stack,
+  
+} from "@mui/material";
 import { Link } from "react-router-dom";
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import HttpsIcon from '@mui/icons-material/Https';
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import HttpsIcon from "@mui/icons-material/Https";
 
 const Login = () => {
   return (
     <Stack alignItems={"center"}>
       <Stack
-        marginTop={"60px"}
+        marginTop={"100px"}
         sx={{
           minWidth: {
             xs: "350px",
@@ -17,22 +23,40 @@ const Login = () => {
           gap: "40px",
         }}
       >
-       <TextField id="username" label='username'
+        <Stack         
+    alignItems={"center"}>
+          <AccountCircle
+            color="primary"
+            sx={{
+              height: "100px",
+              width: "100px",
+            }}
+          />
+          login
+        </Stack>
+        <TextField
+          id="username"
+          placeholder="username"
           InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <AccountCircle />
-            </InputAdornment>
-          ),
-        }} />
-        <TextField label="password" id="password" type={'password'}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <HttpsIcon />
-            </InputAdornment>
-          ),
-        }} />
+            startAdornment: (
+              <InputAdornment position="start">
+                <AccountCircle />
+              </InputAdornment>
+            ),
+          }}
+        />
+        <TextField
+          placeholder="password"
+          id="password"
+          type={"password"}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <HttpsIcon />
+              </InputAdornment>
+            ),
+          }}
+        />
       </Stack>
 
       <Button
@@ -48,8 +72,10 @@ const Login = () => {
       >
         Login
       </Button>
-      <Stack direction={'row'} my={'30px'}>
-        <Button ><Link>Register?</Link></Button>
+      <Stack direction={"row"} my={"30px"}>
+        <Button>
+          <Link>Register?</Link>
+        </Button>
         {/* <Button >Forget?</Button> */}
       </Stack>
     </Stack>
