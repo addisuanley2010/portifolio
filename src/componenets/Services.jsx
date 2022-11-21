@@ -23,7 +23,7 @@ const Services = () => {
       <Grid item>
         <Card
           sx={{
-            width: "400px",
+            width: "500px",
             minHeight: "300px",
             padding: "25px",
             backgroundColor: "primary.light",
@@ -45,7 +45,7 @@ const Services = () => {
             "&:hover": {
               backgroundColor: "primary.dark",
             },
-            width: "400px",
+            width: "500px",
             minHeight: "300px",
             padding: "25px",
           }}
@@ -63,7 +63,7 @@ const Services = () => {
             "&:hover": {
               backgroundColor: "primary.dark",
             },
-            width: "400px",
+            width: "500px",
             minHeight: "300px",
             padding: "25px",
           }}
