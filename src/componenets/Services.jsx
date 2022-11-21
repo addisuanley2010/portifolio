@@ -5,10 +5,8 @@ const Services = () => {
   return (
     <Grid
       container
-      justifyContent="space-evenly"
+      justifyContent={"center"}
       sx={{
-        marginLeft: "20px",
-        marginRight: "20px",
         marginTop: "50px",
         marginBottom: "20px",
         gap: "40px",
@@ -25,7 +23,7 @@ const Services = () => {
       <Grid item>
         <Card
           sx={{
-            width: "500px",
+            width: "400px",
             minHeight: "300px",
             padding: "25px",
             backgroundColor: "primary.light",
@@ -47,7 +45,7 @@ const Services = () => {
             "&:hover": {
               backgroundColor: "primary.dark",
             },
-            width: "500px",
+            width: "400px",
             minHeight: "300px",
             padding: "25px",
           }}
@@ -65,7 +63,7 @@ const Services = () => {
             "&:hover": {
               backgroundColor: "primary.dark",
             },
-            width: "500px",
+            width: "400px",
             minHeight: "300px",
             padding: "25px",
           }}
