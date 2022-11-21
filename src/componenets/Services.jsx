@@ -1,9 +1,83 @@
-import React from 'react'
+import { Grid, Card, Typography } from "@mui/material";
+import React from "react";
 
 const Services = () => {
   return (
-    <div>Services</div>
-  )
-}
+    <Grid
+      container
+      justifyContent="space-evenly"
+      sx={{
+        marginLeft: "20px",
+        marginRight: "20px",
+        marginTop: "50px",
+        marginBottom: "20px",
+        gap: "40px",
 
-export default Services
+        flexDirection: {
+          sm: "column",
+          xs: "column",
+          md: "row",
+          lg: "row",
+          xl: "row",
+        },
+      }}
+    >
+      <Grid item>
+        <Card
+          sx={{
+            width: "500px",
+            minHeight: "300px",
+            padding: "25px",
+            backgroundColor: "primary.light",
+            "&:hover": {
+              backgroundColor: "primary.dark",
+            },
+          }}
+        >
+          <Typography variant="body2" color="inherit">
+            Create Projects I had created many Projects in HTML, CSS,
+            JAVASCRIPT, php. for sample you checkout my github
+          </Typography>
+        </Card>
+      </Grid>
+      <Grid item>
+        <Card
+          sx={{
+            backgroundColor: "primary.light",
+            "&:hover": {
+              backgroundColor: "primary.dark",
+            },
+            width: "500px",
+            minHeight: "300px",
+            padding: "25px",
+          }}
+        >
+          <Typography variant="body2" color="inherit">
+            Create Projects I had created many Projects in HTML, CSS,
+            JAVASCRIPT, php. for sample you checkout my github
+          </Typography>
+        </Card>
+      </Grid>
+      <Grid item>
+        <Card
+          sx={{
+            backgroundColor: "primary.light",
+            "&:hover": {
+              backgroundColor: "primary.dark",
+            },
+            width: "500px",
+            minHeight: "300px",
+            padding: "25px",
+          }}
+        >
+          <Typography variant="body2" color="inherit">
+            Create Projects I had created many Projects in HTML, CSS,
+            JAVASCRIPT, php. for sample you checkout my github
+          </Typography>
+        </Card>
+      </Grid>
+    </Grid>
+  );
+};
+
+export default Services;
