@@ -68,7 +68,7 @@ function Navbar(props) {
 
   return (
     <Box sx={{ display: "flex" }} flexDirection="column">
-      <AppBar component="nav" position="sticky">
+      <AppBar component="nav" position="sticky" sx={{marginBottom:'10px'}}>
         <Toolbar>
           <Stack
             direction="row"
