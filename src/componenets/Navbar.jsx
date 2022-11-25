@@ -8,6 +8,13 @@ import Teams from "./Teams";
 import Login from "./Login";
 import Alert from "./Alert";
 
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import Tooltip from "@mui/material/Tooltip";
+import PersonAdd from "@mui/icons-material/PersonAdd";
+import Settings from "@mui/icons-material/Settings";
+import Logout from "@mui/icons-material/Logout";
 
 import { Link, Route, Routes } from "react-router-dom";
 import {
@@ -43,6 +50,15 @@ const navItems = [
 ];
 
 function Navbar(props) {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
@@ -74,13 +90,20 @@ function Navbar(props) {
 
   return (
     <Box sx={{ display: "flex" }} flexDirection="column">
-      <AppBar component="nav" position="sticky" sx={{ marginBottom: "10px" }}>
+      <AppBar
+        component="nav"
+        position="sticky"
+        sx={{
+          marginRight: "0px",
+          marginBottom: "10px",
+        }}
+      >
         <Toolbar>
           <Stack
             direction="row"
             justifyContent="space-between"
             alignItems={"center"}
-            spacing={45}
+            spacing={35}
           >
             <IconButton
               color="inherit"
@@ -92,18 +115,23 @@ function Navbar(props) {
               <MenuIcon />
             </IconButton>
 
-            <Avatar
-              alt="Adda"
-              src="../aa.JPG"
-              sx={{
-                width: 40,
-                height: 40,
-                display: {
-                  xs: "block",
-                  sm: "none",
-                },
-              }}
-            />
+            <Tooltip title="Account settings">
+              <IconButton>
+                <Avatar
+                  alt="Adda"
+                  onClick={handleClick}
+                  src="../aa.JPG"
+                  sx={{
+                    width: 40,
+                    height: 40,
+                    display: {
+                      xs: "block",
+                      sm: "none",
+                    },
+                  }}
+                />
+              </IconButton>
+            </Tooltip>
           </Stack>
 
           <Avatar
@@ -179,6 +207,69 @@ function Navbar(props) {
         <Route path="/teams" element={<Teams />}></Route>
         <Route path="/register" element={<Register />}></Route>
       </Routes>
+
+      <React.Fragment>
+      
+        <Menu
+           anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          onClick={handleClose}
+          PaperProps={{
+            elevation: 10,
+            sx: {
+              overflow: "visible",
+              filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+              mt: 2,
+              "& .MuiAvatar-root": {
+                width: 32,
+                height: 32,
+                ml: -0.5,
+                mr: 1,
+              },
+              "&:before": {
+                content: '""',
+                display: "block",
+                position: "absolute",
+                top: 0,
+                right: 14,
+                width: 10,
+                height: 10,
+                bgcolor: "background.paper",
+                transform: "translateY(-50%) rotate(45deg)",
+              },
+            },
+          }}
+          transformOrigin={{ horizontal: "right", vertical: "top" }}
+          anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+        >
+          <MenuItem>
+            <Avatar /> Profile
+          </MenuItem>
+          <MenuItem>
+            <Avatar /> My account
+          </MenuItem>
+          <Divider />
+          <MenuItem>
+            <ListItemIcon>
+              <PersonAdd fontSize="small" />
+            </ListItemIcon>
+            Add another account
+          </MenuItem>
+          <MenuItem>
+            <ListItemIcon>
+              <Settings fontSize="small" />
+            </ListItemIcon>
+            Settings
+          </MenuItem>
+          <MenuItem>
+            <ListItemIcon>
+              <Logout fontSize="small" />
+            </ListItemIcon>
+            Logout
+          </MenuItem>
+        </Menu>
+      </React.Fragment>
     </Box>
   );
 }
