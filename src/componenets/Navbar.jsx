@@ -6,6 +6,7 @@ import Services from "./Services";
 import Skills from "./Skills";
 import Teams from "./Teams";
 import Login from "./Login";
+import Alert from "./Alert";
 
 
 import { Link, Route, Routes } from "react-router-dom";
@@ -73,7 +74,7 @@ function Navbar(props) {
 
   return (
     <Box sx={{ display: "flex" }} flexDirection="column">
-      <AppBar component="nav" position="sticky" sx={{ marginBottom: "10px" }}>
+      <AppBar component="nav" position="fixed" sx={{ marginBottom: "10px" }}>
         <Toolbar>
           <Stack
             direction="row"
@@ -166,6 +167,8 @@ function Navbar(props) {
         </Drawer>
       </Box>
       <Routes>
+        <Route path="/alert" element={<Alert />}></Route>
+
         <Route path="/" element={<Home />}></Route>
         <Route path="/home" element={<Home />}></Route>
         <Route path="/contact" element={<Contact />}></Route>

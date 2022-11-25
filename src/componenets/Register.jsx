@@ -8,6 +8,11 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {
+  DialogTitle,
+  DialogContentText,
+  DialogContent,
+  DialogActions,
+  Dialog,
   InputAdornment,
   Button,
   TextField,
@@ -16,6 +21,8 @@ import {
 } from "@mui/material";
 
 const Register = () => {
+  const [description, setDescription] = useState("");
+  const [open, setOpen] = React.useState(false);
   const [values, setValues] = useState({
     username: "",
     email: "",
@@ -23,33 +30,41 @@ const Register = () => {
     password: "",
     confirmPassword: "",
   });
+
   const navigate = useNavigate();
 
   const handleChange = (event) => {
     event.preventDefault();
-
     const fieldName = event.target.getAttribute("name");
     const fieldValue = event.target.value;
-
     const newValues = { ...values };
     newValues[fieldName] = fieldValue;
-
     setValues(newValues);
   };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const handleSubmit = () => {
-    if(values.username!==""&&values.email!==""&&values.password!==""&&values.department!==""){
-    axios.post("http://localhost:3001/insert", values).then((res) => {
-      if (res.data.error){
-        alert(res.data.error);
-      } 
-      else {
-        alert(res.data.success)
-        navigate("/login");
-      }
-    });}
-    else{
-      alert('please fill all the fields!')
+    if (
+      values.username !== "" &&
+      values.email !== "" &&
+      values.password !== "" &&
+      values.department !== ""
+    ) {
+      axios.post("http://localhost:3001/insert", values).then((res) => {
+        if (res.data.error) {
+          setDescription(res.data.error);
+          setOpen(true);
+        } else {
+          setDescription(res.data.success);
+          navigate("/login");
+        }
+      });
+    } else {
+      setDescription("please fill all the fields!");
+      setOpen(true);
     }
   };
 
@@ -164,6 +179,15 @@ const Register = () => {
       >
         Register
       </Button>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Notice!</DialogTitle>
+        <DialogContent>
+          <DialogContentText>{description} </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>ok</Button>
+        </DialogActions>
+      </Dialog>
     </Stack>
   );
 };
