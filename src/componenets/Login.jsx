@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
   InputAdornment,
   Button,
@@ -11,6 +12,14 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import HttpsIcon from "@mui/icons-material/Https";
 
 const Login = () => {
+   const navigate=useNavigate()
+
+
+
+
+  const register=()=>{
+    navigate('/register')
+  }
   return (
     <Stack alignItems={"center"}>
       <Stack
@@ -73,7 +82,7 @@ const Login = () => {
         Login
       </Button>
       <Stack direction={"row"} my={"30px"}>
-        <Button>
+        <Button onClick={register}>
           <Link>Register?</Link>
         </Button>
         {/* <Button >Forget?</Button> */}

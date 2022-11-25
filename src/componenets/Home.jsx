@@ -24,7 +24,7 @@ const Home = () => {
           <CardMedia
             component="img"
              height="500"
-            image="../aa.JPG"
+            image="../bb.jpg"
             alt="adda"
           />
           <CardContent>

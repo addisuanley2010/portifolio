@@ -7,6 +7,7 @@ import Skills from "./Skills";
 import Teams from "./Teams";
 import Login from "./Login";
 
+
 import { Link, Route, Routes } from "react-router-dom";
 import {
   Stack,
@@ -27,6 +28,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 
 import { useState } from "react";
+import Register from "./Register";
 
 const drawerWidth = 250;
 const navItems = [
@@ -56,7 +58,10 @@ function Navbar(props) {
         {navItems.map((item) => (
           <ListItem key={item} disablePadding>
             <ListItemButton sx={{ textAlign: "center" }}>
-              <Link to={item} style={{paddingLeft: 15,textDecoration: 'none'}}>
+              <Link
+                to={item}
+                style={{ paddingLeft: 15, textDecoration: "none" }}
+              >
                 <ListItemText primary={item} />
               </Link>
             </ListItemButton>
@@ -68,7 +73,7 @@ function Navbar(props) {
 
   return (
     <Box sx={{ display: "flex" }} flexDirection="column">
-      <AppBar component="nav" position="sticky" sx={{marginBottom:'10px'}}>
+      <AppBar component="nav" position="sticky" sx={{ marginBottom: "10px" }}>
         <Toolbar>
           <Stack
             direction="row"
@@ -125,21 +130,29 @@ function Navbar(props) {
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {navItems.map((item) => (
-              <Button  color="inherit" sx={{
-             marginX:'10px',
-             
-              }}>
-                <Link to={item} key={item} style={{
-                  paddingLeft: 10, textDecoration: 'none' ,color: 'inherit'}} >
+              <Button
+                color="inherit"
+                sx={{
+                  marginX: "10px",
+                }}
+              >
+                <Link
+                  to={item}
+                  key={item}
+                  style={{
+                    paddingLeft: 10,
+                    textDecoration: "none",
+                    color: "inherit",
+                  }}
+                >
                   {item}
                 </Link>
               </Button>
-
             ))}
           </Box>
         </Toolbar>
       </AppBar>
-    
+
       <Box component="nav">
         <Drawer
           open={mobileOpen}
@@ -161,6 +174,7 @@ function Navbar(props) {
         <Route path="/services" element={<Services />}></Route>
         <Route path="/skills" element={<Skills />}></Route>
         <Route path="/teams" element={<Teams />}></Route>
+        <Route path="/register" element={<Register />}></Route>
       </Routes>
     </Box>
   );
