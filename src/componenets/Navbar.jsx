@@ -48,6 +48,8 @@ const navItems = [
   "About",
   "Contact",
   "Login",
+  "post"
+  
 ];
 
 function Navbar(props) {
@@ -196,13 +198,13 @@ function Navbar(props) {
         </Drawer>
       </Box>
       <Routes>
-        <Route path="/services" element={<UploadPost />}></Route>
+        <Route path="/post" element={<UploadPost />}></Route>
         <Route path="/" element={<Home />}></Route>
         <Route path="/home" element={<Home />}></Route>
         <Route path="/contact" element={<Contact />}></Route>
         <Route path="/about" element={<About />}></Route>
         <Route path="/login" element={<Login />}></Route>
-        {/* <Route path="/services" element={<Services />}></Route> */}
+        <Route path="/services" element={<Services />}></Route>
         <Route path="/skills" element={<Skills />}></Route>
         <Route path="/teams" element={<Teams />}></Route>
         <Route path="/register" element={<Register />}></Route>
