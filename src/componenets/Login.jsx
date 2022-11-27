@@ -1,25 +1,48 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  InputAdornment,
-  Button,
-  TextField,
-  Stack,
-  
-} from "@mui/material";
+import { InputAdornment, Button, TextField, Stack } from "@mui/material";
 import { Link } from "react-router-dom";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import HttpsIcon from "@mui/icons-material/Https";
+import axios from "axios";
+import { useState, useContext } from "react";
+import { Addisu } from "../App";
 
 const Login = () => {
-   const navigate=useNavigate()
+  const [loginValue, setLoginValue] = useState({
+    username: "",
+    password: "",
+  });
 
+  const navigate = useNavigate();
+  const Aschale = useContext(Addisu);
 
+  const register = () => {
+    navigate("/register");
+  };
 
+  const handleChange = (event) => {
+    event.preventDefault();
+    const fieldName = event.target.getAttribute("name");
+    const fieldValue = event.target.value;
+    const newValues = { ...loginValue };
+    newValues[fieldName] = fieldValue;
+    setLoginValue(newValues);
+  };
 
-  const register=()=>{
-    navigate('/register')
-  }
+  const handleSubmit = () => {
+    axios.post("http://localhost:3001/login", loginValue).then((res) => {
+      if (res.data.error) {
+        Aschale.setDialogValue({ description: res.data.error, open: true });
+      } else {
+        sessionStorage.setItem("accessToken", res.data.accessToken);
+        navigate('/') 
+               Aschale.setDialogValue({ description: res.data.success, open: true });
+
+      }
+    });
+  };
+
   return (
     <Stack alignItems={"center"}>
       <Stack
@@ -32,8 +55,7 @@ const Login = () => {
           gap: "40px",
         }}
       >
-   <Stack         
-    alignItems={"center"}>
+        <Stack alignItems={"center"}>
           <AccountCircle
             color="primary"
             sx={{
@@ -44,8 +66,10 @@ const Login = () => {
           login
         </Stack>
         <TextField
-          id="username"
+          name="username"
           placeholder="username"
+          value={loginValue.username}
+          onChange={handleChange}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -56,8 +80,10 @@ const Login = () => {
         />
         <TextField
           placeholder="password"
-          id="password"
+          name="password"
           type={"password"}
+          value={loginValue.password}
+          onChange={handleChange}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -70,6 +96,7 @@ const Login = () => {
 
       <Button
         variant="contained"
+        onClick={handleSubmit}
         sx={{
           marginTop: "60px",
           paddingY: "8px",
@@ -81,6 +108,7 @@ const Login = () => {
       >
         Login
       </Button>
+
       <Stack direction={"row"} my={"30px"}>
         <Button onClick={register}>
           <Link>Register?</Link>

@@ -6,7 +6,6 @@ import Services from "./Services";
 import Skills from "./Skills";
 import Teams from "./Teams";
 import Login from "./Login";
-import Alert from "./Alert";
 
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -37,6 +36,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 
 import { useState } from "react";
 import Register from "./Register";
+import UploadPost from "./UploadPost";
 
 const drawerWidth = 250;
 const navItems = [
@@ -195,8 +195,7 @@ function Navbar(props) {
         </Drawer>
       </Box>
       <Routes>
-        <Route path="/alert" element={<Alert />}></Route>
-
+        <Route path="/post" element={<UploadPost />}></Route>
         <Route path="/" element={<Home />}></Route>
         <Route path="/home" element={<Home />}></Route>
         <Route path="/contact" element={<Contact />}></Route>
@@ -209,9 +208,8 @@ function Navbar(props) {
       </Routes>
 
       <React.Fragment>
-      
         <Menu
-           anchorEl={anchorEl}
+          anchorEl={anchorEl}
           open={open}
           onClose={handleClose}
           onClick={handleClose}

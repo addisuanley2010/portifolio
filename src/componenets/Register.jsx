@@ -4,15 +4,14 @@ import HttpsIcon from "@mui/icons-material/Https";
 import EmailIcon from "@mui/icons-material/Email";
 import SchoolIcon from "@mui/icons-material/School";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import { useState } from "react";
+import { useState, useContext } from "react";
+
+import { Addisu } from "../App";
+
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+
 import {
-  DialogTitle,
-  DialogContentText,
-  DialogContent,
-  DialogActions,
-  Dialog,
   InputAdornment,
   Button,
   TextField,
@@ -21,8 +20,6 @@ import {
 } from "@mui/material";
 
 const Register = () => {
-  const [description, setDescription] = useState("");
-  const [open, setOpen] = React.useState(false);
   const [values, setValues] = useState({
     username: "",
     email: "",
@@ -30,7 +27,7 @@ const Register = () => {
     password: "",
     confirmPassword: "",
   });
-
+  const Aschale = useContext(Addisu);
   const navigate = useNavigate();
 
   const handleChange = (event) => {
@@ -42,10 +39,6 @@ const Register = () => {
     setValues(newValues);
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   const handleSubmit = () => {
     if (
       values.username !== "" &&
@@ -53,18 +46,20 @@ const Register = () => {
       values.password !== "" &&
       values.department !== ""
     ) {
-      axios.post("http://localhost:3001/insert", values).then((res) => {
+      axios.post("http://localhost:3001/register", values).then((res) => {
         if (res.data.error) {
-          setDescription(res.data.error);
-          setOpen(true);
+          Aschale.setDialogValue({ description: res.data.error, open: true });
         } else {
-          setDescription(res.data.success);
+          Aschale.setDialogValue({ description: res.data.success, open: true });
           navigate("/login");
+          // console.log(Aschale.dialogValue.description)
         }
       });
     } else {
-      setDescription("please fill all the fields!");
-      setOpen(true);
+      Aschale.setDialogValue({
+        description: "please fill all the fields!",
+        open: true,
+      });
     }
   };
 
@@ -179,15 +174,6 @@ const Register = () => {
       >
         Register
       </Button>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Notice!</DialogTitle>
-        <DialogContent>
-          <DialogContentText>{description} </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>ok</Button>
-        </DialogActions>
-      </Dialog>
     </Stack>
   );
 };
