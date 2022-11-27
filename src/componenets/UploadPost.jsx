@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import AddReactionIcon from "@mui/icons-material/AddReaction";
@@ -25,7 +26,7 @@ const UploadPost = () => {
   });
   const [selectedImage, setSelectedImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
-
+const navigate=useNavigate()
   useEffect(() => {
     if (selectedImage) {
       setImageUrl(URL.createObjectURL(selectedImage));
@@ -46,6 +47,7 @@ const handleSubmit=()=>{
 console.log("yesssss!")
       }
     });
+    navigate('/home')
 }
 
 
@@ -125,11 +127,11 @@ console.log("yesssss!")
                 </Button>
               </label>
               <Typography gutterBottom variant="h5" component="div">
-                {post.title}
+                {/* {post.title} */}
               </Typography>
 
               <Typography variant="body2" color="text.secondary">
-                {post.description}
+                {/* {post.description} */}
               </Typography>
             </CardContent>
             <CardActions>
@@ -157,7 +159,7 @@ console.log("yesssss!")
       </Stack>
       <Button
         sx={{
-          marginTop: "15%",
+          marginTop: "5%",
           marginLeft: "58%",
           "&:hover": {
             backgroundColor: "primary.light",
