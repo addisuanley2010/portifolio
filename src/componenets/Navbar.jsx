@@ -37,6 +37,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { useState } from "react";
 import Register from "./Register";
 import UploadPost from "./UploadPost";
+import PageNotFound from "./PageNotFound";
 
 const drawerWidth = 250;
 const navItems = [
@@ -195,16 +196,17 @@ function Navbar(props) {
         </Drawer>
       </Box>
       <Routes>
-        <Route path="/post" element={<UploadPost />}></Route>
+        <Route path="/services" element={<UploadPost />}></Route>
         <Route path="/" element={<Home />}></Route>
         <Route path="/home" element={<Home />}></Route>
         <Route path="/contact" element={<Contact />}></Route>
         <Route path="/about" element={<About />}></Route>
         <Route path="/login" element={<Login />}></Route>
-        <Route path="/services" element={<Services />}></Route>
+        {/* <Route path="/services" element={<Services />}></Route> */}
         <Route path="/skills" element={<Skills />}></Route>
         <Route path="/teams" element={<Teams />}></Route>
         <Route path="/register" element={<Register />}></Route>
+        <Route path="/*" element={<PageNotFound />}></Route>
       </Routes>
 
       <React.Fragment>
