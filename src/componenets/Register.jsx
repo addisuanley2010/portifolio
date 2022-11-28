@@ -46,7 +46,7 @@ const Register = () => {
       values.password !== "" &&
       values.department !== ""
     ) {
-      axios.post("http://localhost:3001/register", values).then((res) => {
+      axios.post("http://localhost:3002/register", values).then((res) => {
         if (res.data.error) {
           Aschale.setDialogValue({ description: res.data.error, open: true });
         } else {

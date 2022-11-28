@@ -6,7 +6,8 @@ import Services from "./Services";
 import Skills from "./Skills";
 import Teams from "./Teams";
 import Login from "./Login";
-
+import { useState, useContext } from "react";
+import { Addisu } from "../App";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -14,7 +15,6 @@ import Tooltip from "@mui/material/Tooltip";
 import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
-
 import { Link, Route, Routes } from "react-router-dom";
 import {
   Stack,
@@ -34,30 +34,23 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 
-import { useState } from "react";
 import Register from "./Register";
 import UploadPost from "./UploadPost";
 import PageNotFound from "./PageNotFound";
 
 const drawerWidth = 250;
-const navItems = [
-  "home",
-  "Services",
-  "Skills",
-  "Teams",
-  "About",
-  "Contact",
-  "Login",
-  "post"
-  
-];
+const navItems = ["home", "Services", "Skills", "Teams", "About", "Contact"];
 
 function Navbar(props) {
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
+  const Aschale = useContext(Addisu);
+
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -87,6 +80,23 @@ function Navbar(props) {
             </ListItemButton>
           </ListItem>
         ))}
+        <Divider />
+        {Aschale.display ? (
+          <ListItemButton sx={{ textAlign: "center" }}>
+            <Link to="post" style={{ paddingLeft: 15, textDecoration: "none" }}>
+              <ListItemText primary=" add post" />
+            </Link>
+          </ListItemButton>
+        ) : (
+          <ListItemButton sx={{ textAlign: "center" }}>
+            <Link
+              to="login"
+              style={{ paddingLeft: 15, textDecoration: "none" }}
+            >
+              <ListItemText primary="login"></ListItemText>
+            </Link>
+          </ListItemButton>
+        )}
       </List>
     </Box>
   );
@@ -117,24 +127,30 @@ function Navbar(props) {
             >
               <MenuIcon />
             </IconButton>
-
-            <Tooltip title="Account settings">
-              <IconButton>
-                <Avatar
-                  alt="Adda"
-                  onClick={handleClick}
-                  src="../aa.JPG"
-                  sx={{
-                    width: 40,
-                    height: 40,
-                    display: {
-                      xs: "block",
-                      sm: "none",
-                    },
-                  }}
-                />
-              </IconButton>
-            </Tooltip>
+            {/* 
+            this must be displayed after logged in
+             */}
+            {Aschale.display ? (
+              <Tooltip title="Account settings">
+                <IconButton>
+                  <Avatar
+                    alt="Adda"
+                    onClick={handleClick}
+                    src="../aa.JPG"
+                    sx={{
+                      width: 40,
+                      height: 40,
+                      display: {
+                        xs: "block",
+                        sm: "none",
+                      },
+                    }}
+                  />
+                </IconButton>
+              </Tooltip>
+            ) : (
+              <></>
+            )}
           </Stack>
 
           <Avatar
@@ -181,6 +197,59 @@ function Navbar(props) {
                 </Link>
               </Button>
             ))}
+            {!Aschale.display ? (
+              <Button
+                color="inherit"
+                sx={{
+                  marginX: "10px",
+                }}
+              >
+                <Link
+                  to="/login"
+                  style={{
+                    paddingLeft: 10,
+                    textDecoration: "none",
+                    color: "inherit",
+                  }}
+                >
+                  login
+                </Link>
+              </Button>
+            ) : (
+              <>
+                <Button
+                  color="inherit"
+                  sx={{
+                    marginX: "10px",
+                  }}
+                >
+                  <Link
+                    to="/post"
+                    style={{
+                      paddingLeft: 10,
+                      textDecoration: "none",
+                      color: "inherit",
+                    }}
+                  >
+                   add post
+                  </Link>
+                </Button>
+
+                <Tooltip title="Account settings">
+                  <IconButton>
+                    <Avatar
+                      alt="Adda"
+                      onClick={handleClick}
+                      src="../aa.JPG"
+                      sx={{
+                        width: 40,
+                        height: 40,
+                      }}
+                    />
+                  </IconButton>
+                </Tooltip>
+              </>
+            )}
           </Box>
         </Toolbar>
       </AppBar>
@@ -198,19 +267,18 @@ function Navbar(props) {
         </Drawer>
       </Box>
       <Routes>
-        <Route path="/post" element={<UploadPost />}></Route>
-        <Route path="/" element={<Home />}></Route>
-        <Route path="/home" element={<Home />}></Route>
-        <Route path="/contact" element={<Contact />}></Route>
-        <Route path="/about" element={<About />}></Route>
-        <Route path="/login" element={<Login />}></Route>
-        <Route path="/services" element={<Services />}></Route>
-        <Route path="/skills" element={<Skills />}></Route>
-        <Route path="/teams" element={<Teams />}></Route>
-        <Route path="/register" element={<Register />}></Route>
+        <Route path="/post" exact element={<UploadPost />}></Route>
+        <Route path="/" exact element={<Home />}></Route>
+        <Route path="/home" exact element={<Home />}></Route>
+        <Route path="/contact"exact element={<Contact />}></Route>
+        <Route path="/about" exact element={<About />}></Route>
+        <Route path="/login" exact element={<Login />}></Route>
+        <Route path="/services"exact element={<Services />}></Route>
+        <Route path="/skills" exact element={<Skills />}></Route>
+        <Route path="/teams" exact element={<Teams />}></Route>
+        <Route path="/register"exact element={<Register />}></Route>
         <Route path="/*" element={<PageNotFound />}></Route>
       </Routes>
-
       <React.Fragment>
         <Menu
           anchorEl={anchorEl}
@@ -264,8 +332,12 @@ function Navbar(props) {
             </ListItemIcon>
             Settings
           </MenuItem>
-          <MenuItem>
-            <ListItemIcon>
+          <MenuItem onClick={()=>{
+              Aschale.setDisplay(!Aschale.display)
+              sessionStorage.removeItem('accessToken');
+
+            }}>
+            <ListItemIcon >
               <Logout fontSize="small" />
             </ListItemIcon>
             Logout

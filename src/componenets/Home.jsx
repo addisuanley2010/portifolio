@@ -23,7 +23,7 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/post")
+      .get("http://localhost:3002/post")
       .then((response) => {
         setPost(response.data);
         console.log(response.data)
@@ -36,12 +36,12 @@ const Home = () => {
     <Stack alignItems={"center"} paddingTop="50px">
       {post.map((values,key) => {
         return(
-          <Card sx={{ maxWidth: 1000 ,minWidth:500}} key={key}>
+          <Card sx={{ maxWidth: 1000 }} key={key}>
             <CardMedia
               component="img"
               height="500"
               image={values.image}
-              alt="adda"
+              alt="image not found"
             />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">

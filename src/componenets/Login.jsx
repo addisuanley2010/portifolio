@@ -31,14 +31,14 @@ const Login = () => {
   };
 
   const handleSubmit = () => {
-    axios.post("http://localhost:3001/login", loginValue).then((res) => {
+    axios.post("http://localhost:3002/login", loginValue).then((res) => {
       if (res.data.error) {
         Aschale.setDialogValue({ description: res.data.error, open: true });
       } else {
         sessionStorage.setItem("accessToken", res.data.accessToken);
-        navigate('/') 
-               Aschale.setDialogValue({ description: res.data.success, open: true });
-
+        navigate("/");
+        Aschale.setDisplay(!Aschale.display)
+        Aschale.setDialogValue({ description: res.data.success, open: true });
       }
     });
   };

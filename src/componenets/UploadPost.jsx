@@ -40,7 +40,7 @@ const handleSubmit=()=>{
     description:post.description,
     image:imageUrl
   }
-  axios.post("http://localhost:3001/post", data).then((res) => {
+  axios.post("http://localhost:3002/post", data).then((res) => {
       if (res.data.error) {
        console.log("error")
       } else {

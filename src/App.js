@@ -18,6 +18,10 @@ function App() {
     open: false,
     description: '',
   })
+ 
+ const [display, setDisplay] = useState(false)
+
+
 
   const handleClose = () => {
     setDialogValue({ ...dialogValue, open: false });
@@ -26,10 +30,11 @@ function App() {
 
     <Stack>
       <Addisu.Provider value={{
-        dialogValue:dialogValue,//has no use now
         open: dialogValue.open,
         description: dialogValue.description,
         setDialogValue: setDialogValue,
+        display:display,
+        setDisplay:setDisplay
 
       }}>
         <Navbar />
