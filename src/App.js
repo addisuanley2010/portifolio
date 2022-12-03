@@ -1,5 +1,6 @@
 import Navbar from './componenets/Navbar';
-import { useState, createContext } from 'react';
+import axios from 'axios';
+import { useState, useEffect, createContext } from 'react';
 import {
   DialogTitle,
   DialogContentText,
@@ -13,19 +14,40 @@ import {
 export const Addisu = createContext()
 
 function App() {
-
+  const [id, setId] = useState("")
+  const [username, setUsername] = useState("")
   const [dialogValue, setDialogValue] = useState({
     open: false,
     description: '',
   })
- 
- const [display, setDisplay] = useState(false)
+
+  const [display, setDisplay] = useState(false)
+
+  useEffect(() => {
+    axios.get("http://localhost:3002/login", {
+      headers: {
+        accessToken: sessionStorage.getItem("accessToken"),
+      }
+    }).then((res) => {
+      if (res.data.error) {
+        setDisplay(false)
+      }
+      else {
+        setUsername(res.data.username)
+       setId(res.data.id)
+
+        setDisplay(true)
+      }
+    })
+
+  })
 
 
 
   const handleClose = () => {
     setDialogValue({ ...dialogValue, open: false });
   };
+
   return (
 
     <Stack>
@@ -33,12 +55,15 @@ function App() {
         open: dialogValue.open,
         description: dialogValue.description,
         setDialogValue: setDialogValue,
-        display:display,
-        setDisplay:setDisplay
+        display: display,
+        setDisplay: setDisplay,
+        username: username,
+        setUsername: setUsername,
+        uid:id
 
       }}>
-        <Navbar />
 
+        <Navbar />
       </Addisu.Provider>
       <Dialog open={dialogValue.open} onClose={handleClose}>
         <DialogTitle>Notice!</DialogTitle>
@@ -49,6 +74,7 @@ function App() {
           <Button onClick={handleClose}>ok</Button>
         </DialogActions>
       </Dialog>
+
     </Stack>
   );
 }

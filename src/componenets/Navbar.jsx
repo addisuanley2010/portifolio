@@ -42,7 +42,6 @@ const drawerWidth = 250;
 const navItems = ["home", "Services", "Skills", "Teams", "About", "Contact"];
 
 function Navbar(props) {
-
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -64,7 +63,7 @@ function Navbar(props) {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <Typography variant="h6" sx={{ my: 2 }}>
-        Welcome
+        Welcome {Aschale.username}
       </Typography>
       <Divider />
       <List>
@@ -81,13 +80,12 @@ function Navbar(props) {
           </ListItem>
         ))}
         <Divider />
-        {Aschale.display ? (
-          <ListItemButton sx={{ textAlign: "center" }}>
+         <ListItemButton sx={{ textAlign: "center" }}>
             <Link to="post" style={{ paddingLeft: 15, textDecoration: "none" }}>
               <ListItemText primary=" add post" />
             </Link>
           </ListItemButton>
-        ) : (
+        {!Aschale.display &&(
           <ListItemButton sx={{ textAlign: "center" }}>
             <Link
               to="login"
@@ -174,7 +172,7 @@ function Navbar(props) {
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
-            Welcome
+            Welcome {Aschale.username}
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {navItems.map((item) => (
@@ -197,6 +195,23 @@ function Navbar(props) {
                 </Link>
               </Button>
             ))}
+            <Button
+              color="inherit"
+              sx={{
+                marginX: "10px",
+              }}
+            >
+              <Link
+                to="/post"
+                style={{
+                  paddingLeft: 10,
+                  textDecoration: "none",
+                  color: "inherit",
+                }}
+              >
+                add post
+              </Link>
+            </Button>
             {!Aschale.display ? (
               <Button
                 color="inherit"
@@ -216,39 +231,19 @@ function Navbar(props) {
                 </Link>
               </Button>
             ) : (
-              <>
-                <Button
-                  color="inherit"
-                  sx={{
-                    marginX: "10px",
-                  }}
-                >
-                  <Link
-                    to="/post"
-                    style={{
-                      paddingLeft: 10,
-                      textDecoration: "none",
-                      color: "inherit",
+              <Tooltip title="Account settings">
+                <IconButton>
+                  <Avatar
+                    alt="Adda"
+                    onClick={handleClick}
+                    src="../aa.JPG"
+                    sx={{
+                      width: 40,
+                      height: 40,
                     }}
-                  >
-                   add post
-                  </Link>
-                </Button>
-
-                <Tooltip title="Account settings">
-                  <IconButton>
-                    <Avatar
-                      alt="Adda"
-                      onClick={handleClick}
-                      src="../aa.JPG"
-                      sx={{
-                        width: 40,
-                        height: 40,
-                      }}
-                    />
-                  </IconButton>
-                </Tooltip>
-              </>
+                  />
+                </IconButton>
+              </Tooltip>
             )}
           </Box>
         </Toolbar>
@@ -270,13 +265,13 @@ function Navbar(props) {
         <Route path="/post" exact element={<UploadPost />}></Route>
         <Route path="/" exact element={<Home />}></Route>
         <Route path="/home" exact element={<Home />}></Route>
-        <Route path="/contact"exact element={<Contact />}></Route>
+        <Route path="/contact" exact element={<Contact />}></Route>
         <Route path="/about" exact element={<About />}></Route>
         <Route path="/login" exact element={<Login />}></Route>
-        <Route path="/services"exact element={<Services />}></Route>
+        <Route path="/services" exact element={<Services />}></Route>
         <Route path="/skills" exact element={<Skills />}></Route>
         <Route path="/teams" exact element={<Teams />}></Route>
-        <Route path="/register"exact element={<Register />}></Route>
+        <Route path="/register" exact element={<Register />}></Route>
         <Route path="/*" element={<PageNotFound />}></Route>
       </Routes>
       <React.Fragment>
@@ -332,12 +327,15 @@ function Navbar(props) {
             </ListItemIcon>
             Settings
           </MenuItem>
-          <MenuItem onClick={()=>{
-              Aschale.setDisplay(!Aschale.display)
-              sessionStorage.removeItem('accessToken');
+          <MenuItem
+            onClick={() => {
+              Aschale.setDisplay(!Aschale.display);
+              sessionStorage.removeItem("accessToken");
+              Aschale.setUsername("")
 
-            }}>
-            <ListItemIcon >
+            }}
+          >
+            <ListItemIcon>
               <Logout fontSize="small" />
             </ListItemIcon>
             Logout

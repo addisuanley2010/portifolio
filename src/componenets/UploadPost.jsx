@@ -40,14 +40,19 @@ const handleSubmit=()=>{
     description:post.description,
     image:imageUrl
   }
-  axios.post("http://localhost:3002/post", data).then((res) => {
+  axios.post("http://localhost:3002/post", data,{
+     headers:{
+      accessToken:sessionStorage.getItem("accessToken"),
+    }
+  }).then((res) => {
       if (res.data.error) {
-       console.log("error")
+       alert(res.data.error)
       } else {
-console.log("yesssss!")
+        alert('successfully posted')
+    navigate('/home')
+
       }
     });
-    navigate('/home')
 }
 
 
@@ -127,11 +132,9 @@ console.log("yesssss!")
                 </Button>
               </label>
               <Typography gutterBottom variant="h5" component="div">
-                {/* {post.title} */}
               </Typography>
 
               <Typography variant="body2" color="text.secondary">
-                {/* {post.description} */}
               </Typography>
             </CardContent>
             <CardActions>
