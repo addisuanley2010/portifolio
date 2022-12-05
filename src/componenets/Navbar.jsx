@@ -34,9 +34,9 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 
-import Register from "./Register";
 import UploadPost from "./UploadPost";
 import PageNotFound from "./PageNotFound";
+import RegisterFormik from "./RegisterFormik";
 
 const drawerWidth = 250;
 const navItems = ["home", "Services", "Skills", "Teams", "About", "Contact"];
@@ -67,10 +67,10 @@ function Navbar(props) {
       </Typography>
       <Divider />
       <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: "center" }}>
-              <Link
+        {navItems.map((item ,key) => (
+          <ListItem key={key} disablePadding>
+            <ListItemButton key={key} sx={{ textAlign: "center" }}>
+              <Link key={item}
                 to={item}
                 style={{ paddingLeft: 15, textDecoration: "none" }}
               >
@@ -80,7 +80,7 @@ function Navbar(props) {
           </ListItem>
         ))}
         <Divider />
-         <ListItemButton sx={{ textAlign: "center" }}>
+         <ListItemButton sx={{ textAlign: "center" }} >
             <Link to="post" style={{ paddingLeft: 15, textDecoration: "none" }}>
               <ListItemText primary=" add post" />
             </Link>
@@ -271,7 +271,7 @@ function Navbar(props) {
         <Route path="/services" exact element={<Services />}></Route>
         <Route path="/skills" exact element={<Skills />}></Route>
         <Route path="/teams" exact element={<Teams />}></Route>
-        <Route path="/register" exact element={<Register />}></Route>
+        <Route path="/register" exact element={<RegisterFormik />}></Route>
         <Route path="/*" element={<PageNotFound />}></Route>
       </Routes>
       <React.Fragment>
