@@ -24,21 +24,26 @@ const UploadPost = () => {
     title: "",
     description: "",
   });
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [imageUrl, setImageUrl] = useState(null);
-const navigate=useNavigate()
+
+  const [imageName, setNmageName] = useState("") // to accept name from file name from end point
+  const [selectedImage, setSelectedImage] = useState(null); //to accept from the local file
+  const [imageUrl, setImageUrl] = useState(null); //to display temorarly on browser
+  const navigate=useNavigate()
+
   useEffect(() => {
     if (selectedImage) {
       setImageUrl(URL.createObjectURL(selectedImage));
     }
   }, [selectedImage]);
-  console.log(imageUrl);
+
+
+
 
 const handleSubmit=()=>{
   const data={
     title:post.title,
     description:post.description,
-    image:imageUrl
+    image:imageName
   }
   axios.post("http://localhost:3002/post", data,{
      headers:{
@@ -55,6 +60,23 @@ const handleSubmit=()=>{
     });
 }
 
+
+
+
+ const handleChange = (event) => {
+  setSelectedImage(event.target.files[0])
+   
+    const formdata = new FormData();
+    formdata.append('avatar', event.target.files[0]);
+    axios.post("http://localhost:3002/insertToFolder", formdata, {
+      headers: { "Content-Type": "multipart/form-data" }
+    })
+      .then((res) => {
+        setNmageName(res.data.image)
+      })
+      event.preventDefault()
+
+  }
 
   return (
     <Box>
@@ -83,7 +105,7 @@ const handleSubmit=()=>{
           type="file"
           id="select-image"
           style={{ display: "none" }}
-          onChange={(e) => setSelectedImage(e.target.files[0])}
+          onChange={(e)=>handleChange(e)}
         />
         <Box
           mt={"50px"}

@@ -105,6 +105,7 @@ function Navbar(props) {
         component="nav"
         position="sticky"
         sx={{
+          minWidth:"500",
           marginRight: "0px",
           marginBottom: "10px",
         }}

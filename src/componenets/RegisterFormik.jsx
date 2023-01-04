@@ -1,4 +1,4 @@
-import React from "react";
+import React ,{useState,useEffect}from "react";
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 import HttpsIcon from "@mui/icons-material/Https";
 import EmailIcon from "@mui/icons-material/Email";
@@ -18,9 +18,19 @@ import {
   TextField,
   Stack,
   Typography,
+  Card,
+  CardMedia,
 } from "@mui/material";
 
 const RegisterFormik = () => {
+
+
+
+  const [imageName, setNmageName] = useState("") // to accept name from file name from end point
+  const [selectedImage, setSelectedImage] = useState(null); //to accept from the local file
+  const [imageUrl, setImageUrl] = useState(null); //to display
+
+
   const validationSchema = yup.object({
     username: yup.string().required().min(3).max(10),
     email: yup.string().required().email(),
@@ -29,6 +39,27 @@ const RegisterFormik = () => {
     confirmPassword: yup.string().required().min(4).max(10),
   });
  
+ useEffect(() => {
+    if (selectedImage) {
+      setImageUrl(URL.createObjectURL(selectedImage));
+    }
+  }, [selectedImage]);
+
+
+ const imageChange = (event) => {
+  setSelectedImage(event.target.files[0])
+   
+    const formdata = new FormData();
+    formdata.append('avatar', event.target.files[0]);
+    // axios.post("http://localhost:3002/insertToFolder", formdata, {
+    //   headers: { "Content-Type": "multipart/form-data" }
+    // })
+    //   .then((res) => {
+    //     setNmageName(res.data.image)
+    //   })
+      event.preventDefault()
+
+  }
 
   const formik = useFormik({
     initialValues: {
@@ -165,8 +196,33 @@ const RegisterFormik = () => {
               ),
             }}
           />
+           <TextField
+            placeholder="file"
+            // value={formik.values.confirmPassword}
+            onChange={(e)=>imageChange(e)}
+            // error={Boolean(formik.errors.confirmPassword)}
+            helperText={formik.errors.confirmPassword}
+            name="confirmPassword"
+            type={"file"}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <HttpsIcon />
+                </InputAdornment>
+              ),
+            }}
+          />
         </Stack>
-
+   <Card sx={{ maxWidth: 700 }}>
+            <CardMedia
+              component="img"
+              width="300"
+              height="300"
+              image={imageUrl}
+              alt="adda"
+            />
+            
+          </Card>
         <Button
           variant="outlined"
           type="submit"

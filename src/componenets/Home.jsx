@@ -71,7 +71,7 @@ const Home = () => {
               <CardMedia
                 component="img"
                 height="500"
-                image={values.image}
+                image={require(`../assets/${values.image}`)}
                 alt="image not found"
               />
               <CardContent>
