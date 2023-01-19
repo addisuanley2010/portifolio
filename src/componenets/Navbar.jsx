@@ -67,10 +67,10 @@ function Navbar(props) {
       </Typography>
       <Divider />
       <List>
-        {navItems.map((item ,key) => (
+        {navItems.map((item ,key) => 
           <ListItem key={key} disablePadding>
             <ListItemButton key={key} sx={{ textAlign: "center" }}>
-              <Link key={item}
+              <Link 
                 to={item}
                 style={{ paddingLeft: 15, textDecoration: "none" }}
               >
@@ -78,7 +78,7 @@ function Navbar(props) {
               </Link>
             </ListItemButton>
           </ListItem>
-        ))}
+        )}
         <Divider />
          <ListItemButton sx={{ textAlign: "center" }} >
             <Link to="post" style={{ paddingLeft: 15, textDecoration: "none" }}>
@@ -98,7 +98,7 @@ function Navbar(props) {
       </List>
     </Box>
   );
-
+console.log(Aschale.profileImage)
   return (
     <Box sx={{ display: "flex" }} flexDirection="column">
       <AppBar
@@ -151,10 +151,11 @@ function Navbar(props) {
               <></>
             )}
           </Stack>
-
-          <Avatar
+{
+  Aschale.profileImage&&Aschale.display &&(
+    <Avatar
             alt="Adda"
-            src="../aa.JPG"
+                src={require(`../assets/${Aschale.profileImage}`)}
             sx={{
               width: 70,
               height: 70,
@@ -167,6 +168,9 @@ function Navbar(props) {
               marginTop: "10px",
             }}
           />
+  )
+}
+          
 
           <Typography
             variant="h6"
@@ -237,7 +241,7 @@ function Navbar(props) {
                   <Avatar
                     alt="Adda"
                     onClick={handleClick}
-                    src="../aa.JPG"
+                src={require(`../assets/${Aschale.profileImage}`)}
                     sx={{
                       width: 40,
                       height: 40,
@@ -331,7 +335,7 @@ function Navbar(props) {
           <MenuItem
             onClick={() => {
               Aschale.setDisplay(!Aschale.display);
-              sessionStorage.removeItem("accessToken");
+              sessionStorage.setItem("accessToken","");
               Aschale.setUsername("")
 
             }}

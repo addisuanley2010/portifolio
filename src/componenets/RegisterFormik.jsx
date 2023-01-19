@@ -51,12 +51,12 @@ const RegisterFormik = () => {
    
     const formdata = new FormData();
     formdata.append('avatar', event.target.files[0]);
-    // axios.post("http://localhost:3002/insertToFolder", formdata, {
-    //   headers: { "Content-Type": "multipart/form-data" }
-    // })
-    //   .then((res) => {
-    //     setNmageName(res.data.image)
-    //   })
+    axios.post("http://localhost:3002/insertToFolder", formdata, {
+      headers: { "Content-Type": "multipart/form-data" }
+    })
+      .then((res) => {
+        setNmageName(res.data.image)
+      })
       event.preventDefault()
 
   }
@@ -81,7 +81,8 @@ const RegisterFormik = () => {
   
 
   const handleSubmit = (values) => {
-  
+  values.imageName=imageName;
+  console.log(values)
     axios.post("http://localhost:3002/register", values).then((res) => {
       if (res.data.error) {
         Aschale.setDialogValue({ description: res.data.error, open: true });
@@ -196,11 +197,10 @@ const RegisterFormik = () => {
               ),
             }}
           />
-           <TextField
+          {(!selectedImage&&!imageUrl)?
+            <TextField
             placeholder="file"
-            // value={formik.values.confirmPassword}
             onChange={(e)=>imageChange(e)}
-            // error={Boolean(formik.errors.confirmPassword)}
             helperText={formik.errors.confirmPassword}
             name="confirmPassword"
             type={"file"}
@@ -211,18 +211,18 @@ const RegisterFormik = () => {
                 </InputAdornment>
               ),
             }}
-          />
-        </Stack>
-   <Card sx={{ maxWidth: 700 }}>
+          />:""
+          }
+          </Stack>
+        {(selectedImage&&imageUrl)?
+          <Card sx={{ maxWidth: 700 }}>
             <CardMedia
               component="img"
-              width="300"
-              height="300"
+              height="250"
               image={imageUrl}
               alt="adda"
-            />
-            
-          </Card>
+            />    
+          </Card>:""}
         <Button
           variant="outlined"
           type="submit"

@@ -45,6 +45,7 @@ const handleSubmit=()=>{
     description:post.description,
     image:imageName
   }
+  if(imageName){
   axios.post("http://localhost:3002/post", data,{
      headers:{
       accessToken:sessionStorage.getItem("accessToken"),
@@ -58,6 +59,9 @@ const handleSubmit=()=>{
 
       }
     });
+  }else{
+    alert("pick image first")
+  }
 }
 
 

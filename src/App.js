@@ -1,6 +1,7 @@
 import Navbar from './componenets/Navbar';
-import axios from 'axios';
+// import axios from 'axios';
 import { useState, useEffect, createContext } from 'react';
+import jwtDecode from 'jwt-decode'
 import {
   DialogTitle,
   DialogContentText,
@@ -15,6 +16,7 @@ export const Addisu = createContext()
 
 function App() {
   const [id, setId] = useState("")
+  const [profileImage, setProfileImage] = useState("")
   const [username, setUsername] = useState("")
   const [dialogValue, setDialogValue] = useState({
     open: false,
@@ -24,23 +26,42 @@ function App() {
   const [display, setDisplay] = useState(false)
 
   useEffect(() => {
-    axios.get("http://localhost:3002/login", {
-      headers: {
-        accessToken: sessionStorage.getItem("accessToken"),
-      }
-    }).then((res) => {
-      if (res.data.error) {
+    // axios.get("http://localhost:3002/login", {
+    //   headers: {
+    //     accessToken: sessionStorage.getItem("accessToken"),
+    //   }
+    // }).then((res) => {
+    //   if (res.data.error) {
+    //     setDisplay(false)
+    //   }
+    //   else {
+    //     setUsername(res.data.username)
+    //    setId(res.data.id)
+    //    setProfileImage(res.data.image)
+
+    //     setDisplay(true)
+    //   }
+    // })
+    const token = sessionStorage.getItem("accessToken")
+    if (token) {
+      const user = jwtDecode(token)
+      if (!user) {
         setDisplay(false)
       }
       else {
-        setUsername(res.data.username)
-       setId(res.data.id)
+
+        setUsername(user.username)
+        setId(user.id)
+        setProfileImage(user.image)
 
         setDisplay(true)
-      }
-    })
 
-  })
+      }
+    }
+    else{ 
+      setDisplay(false)
+    }
+  }, [display])
 
 
 
@@ -52,6 +73,7 @@ function App() {
 
     <Stack>
       <Addisu.Provider value={{
+        profileImage: profileImage,
         open: dialogValue.open,
         description: dialogValue.description,
         setDialogValue: setDialogValue,
@@ -59,7 +81,7 @@ function App() {
         setDisplay: setDisplay,
         username: username,
         setUsername: setUsername,
-        uid:id
+        uid: id
 
       }}>
 
