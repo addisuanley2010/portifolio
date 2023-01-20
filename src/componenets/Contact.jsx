@@ -6,7 +6,7 @@ const Contact = () => {
       Lorem, ipsum dolor sit amet consectetur adipisicing elit. Soluta eveniet
       quam nesciunt obcaecati quia tempore assumenda ratione dolores
       consequuntur. Itaque, quam maiores voluptas nostrum ipsum ab accusantium
-      commodi aspernatur natus?
+      commodi aspernatur natus? addisuanley@gmail.com
     </div>
   );
 };

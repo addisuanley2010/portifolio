@@ -22,7 +22,7 @@ function App() {
     open: false,
     description: '',
   })
-
+const [roll, setRoll] = useState("")
   const [display, setDisplay] = useState(false)
 
   useEffect(() => {
@@ -53,7 +53,7 @@ function App() {
         setUsername(user.username)
         setId(user.id)
         setProfileImage(user.image)
-
+        setRoll(user.roll)
         setDisplay(true)
 
       }
@@ -61,7 +61,7 @@ function App() {
     else{ 
       setDisplay(false)
     }
-  }, [display])
+  }, [display,roll])
 
 
 
@@ -81,7 +81,8 @@ function App() {
         setDisplay: setDisplay,
         username: username,
         setUsername: setUsername,
-        uid: id
+        uid: id,
+        roll:roll
 
       }}>
 

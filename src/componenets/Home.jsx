@@ -62,11 +62,30 @@ const Home = () => {
       });
   };
 
+
+const handleDelete=(id)=>{
+  axios
+      .delete(
+        `http://localhost:3002/post/${id}`,
+        {
+          headers: {
+            accessToken: sessionStorage.getItem("accessToken"),
+          },
+        }
+      )
+      .then((res) => {
+        if (res.data.error) {
+          console.log(res.data)
+        } else {
+          console.log(res.data);
+        }
+      });
+}
   return (
     <Stack alignItems={"center"} paddingTop="50px">
       {post.map((values, key) => {
         return (
-          <>
+          <Stack key={values.id}>
             <Card sx={{ maxWidth: 1000, minWidth: 1000 }} key={key}>
               <CardMedia
                 component="img"
@@ -126,6 +145,11 @@ const Home = () => {
                 >
                   comment
                 </Button>
+                {Aschale.username === values.username && (
+                  <Button variant="contained" size="small" color="error" onClick={()=>handleDelete(values.id)}>
+                    delete
+                  </Button>
+                )}
               </CardActions>
             </Card>
             <Divider
@@ -133,7 +157,7 @@ const Home = () => {
                 height: "50px",
               }}
             />
-          </>
+          </Stack>
         );
       })}
     </Stack>

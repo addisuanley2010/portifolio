@@ -15,7 +15,7 @@ import Tooltip from "@mui/material/Tooltip";
 import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
-import { Link, Route, Routes } from "react-router-dom";
+import { Link, useNavigate, Route, Routes } from "react-router-dom";
 import {
   Stack,
   Avatar,
@@ -37,7 +37,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import UploadPost from "./UploadPost";
 import PageNotFound from "./PageNotFound";
 import RegisterFormik from "./RegisterFormik";
-
+import Admin from "./Admin";
 const drawerWidth = 250;
 const navItems = ["home", "Services", "Skills", "Teams", "About", "Contact"];
 
@@ -49,6 +49,7 @@ function Navbar(props) {
   };
 
   const Aschale = useContext(Addisu);
+const navigate=useNavigate()
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -67,10 +68,10 @@ function Navbar(props) {
       </Typography>
       <Divider />
       <List>
-        {navItems.map((item ,key) => 
+        {navItems.map((item, key) => (
           <ListItem key={key} disablePadding>
             <ListItemButton key={key} sx={{ textAlign: "center" }}>
-              <Link 
+              <Link
                 to={item}
                 style={{ paddingLeft: 15, textDecoration: "none" }}
               >
@@ -78,14 +79,15 @@ function Navbar(props) {
               </Link>
             </ListItemButton>
           </ListItem>
-        )}
+        ))}
+        {Aschale.roll ==="admin" && <Button sx={{color:"blue"}} onClick={()=>navigate('/admin')}>manage User</Button>}
         <Divider />
-         <ListItemButton sx={{ textAlign: "center" }} >
-            <Link to="post" style={{ paddingLeft: 15, textDecoration: "none" }}>
-              <ListItemText primary=" add post" />
-            </Link>
-          </ListItemButton>
-        {!Aschale.display &&(
+        <ListItemButton sx={{ textAlign: "center" }}>
+          <Link to="post" style={{ paddingLeft: 15, textDecoration: "none" }}>
+            <ListItemText primary=" add post" />
+          </Link>
+        </ListItemButton>
+        {!Aschale.display && (
           <ListItemButton sx={{ textAlign: "center" }}>
             <Link
               to="login"
@@ -98,14 +100,13 @@ function Navbar(props) {
       </List>
     </Box>
   );
-console.log(Aschale.profileImage)
   return (
     <Box sx={{ display: "flex" }} flexDirection="column">
       <AppBar
         component="nav"
         position="sticky"
         sx={{
-          minWidth:"500",
+          minWidth: "500",
           marginRight: "0px",
           marginBottom: "10px",
         }}
@@ -151,26 +152,23 @@ console.log(Aschale.profileImage)
               <></>
             )}
           </Stack>
-{
-  Aschale.profileImage&&Aschale.display &&(
-    <Avatar
-            alt="Adda"
-                src={require(`../assets/${Aschale.profileImage}`)}
-            sx={{
-              width: 70,
-              height: 70,
-              display: {
-                xs: "none",
-                sm: "block",
-              },
-              marginRight: "30px",
-              marginBottom: "20px",
-              marginTop: "10px",
-            }}
-          />
-  )
-}
-          
+          {Aschale.profileImage && Aschale.display && (
+            <Avatar
+              alt="Adda"
+              src={require(`../assets/${Aschale.profileImage}`)}
+              sx={{
+                width: 70,
+                height: 70,
+                display: {
+                  xs: "none",
+                  sm: "block",
+                },
+                marginRight: "30px",
+                marginBottom: "20px",
+                marginTop: "10px",
+              }}
+            />
+          )}
 
           <Typography
             variant="h6"
@@ -180,8 +178,11 @@ console.log(Aschale.profileImage)
             Welcome {Aschale.username}
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
+             {Aschale.roll ==="admin" && <Button sx={{color:"white"}} onClick={()=>navigate('/admin')}>manage User</Button>}
+
             {navItems.map((item) => (
               <Button
+                key={item}
                 color="inherit"
                 sx={{
                   marginX: "10px",
@@ -200,6 +201,7 @@ console.log(Aschale.profileImage)
                 </Link>
               </Button>
             ))}
+
             <Button
               color="inherit"
               sx={{
@@ -241,7 +243,7 @@ console.log(Aschale.profileImage)
                   <Avatar
                     alt="Adda"
                     onClick={handleClick}
-                src={require(`../assets/${Aschale.profileImage}`)}
+                    src={require(`../assets/${Aschale.profileImage}`)}
                     sx={{
                       width: 40,
                       height: 40,
@@ -277,6 +279,9 @@ console.log(Aschale.profileImage)
         <Route path="/skills" exact element={<Skills />}></Route>
         <Route path="/teams" exact element={<Teams />}></Route>
         <Route path="/register" exact element={<RegisterFormik />}></Route>
+        {Aschale.roll === "admin" && (
+          <Route path="/admin" exact element={<Admin />}></Route>
+        )}
         <Route path="/*" element={<PageNotFound />}></Route>
       </Routes>
       <React.Fragment>
@@ -335,9 +340,8 @@ console.log(Aschale.profileImage)
           <MenuItem
             onClick={() => {
               Aschale.setDisplay(!Aschale.display);
-              sessionStorage.setItem("accessToken","");
-              Aschale.setUsername("")
-
+              sessionStorage.setItem("accessToken", "");
+              Aschale.setUsername("");
             }}
           >
             <ListItemIcon>
